@@ -1,11 +1,9 @@
 package com.techinertia.spring.security.inmemory.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
 
 @RestController
 public class SampleController {
@@ -27,8 +25,4 @@ public class SampleController {
         return "Secure";
     }
 
-    @RequestMapping("/login")
-    public String welcome(Map<String, Object> model) {
-        return "login";
-    }
 }

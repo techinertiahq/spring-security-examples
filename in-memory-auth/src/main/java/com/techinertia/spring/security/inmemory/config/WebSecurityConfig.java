@@ -5,7 +5,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-//@EnableWebSecurity
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -17,15 +17,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .anyRequest().anonymous()
+                                .antMatchers("/unsecured").anonymous()
+                                .antMatchers("/login").anonymous()
+                                .anyRequest().authenticated()
                 ).formLogin(formLogin ->
-                        formLogin.loginPage("/static/login").permitAll()
+                        formLogin.loginPage("/signin").permitAll()
                 );
     }
-//
-//    @Override
-//    public void configure(WebSecurity web) {
-//        web.ignoring().antMatchers("/resources/**");
-//    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/resources/**");
+    }
 
 }
